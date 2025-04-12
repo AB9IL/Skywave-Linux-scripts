@@ -1,0 +1,12 @@
+[Desktop Entry]
+Comment=Monitor AIS beacons with SDR hardware.
+Name=RTL-AIS
+GenericName=RTL-AIS monitor and tools.
+Icon=/usr/share/pixmaps/ais.png
+Exec=/usr/local/bin/ais_monitor.sh gui
+NoDisplay=false
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+Categories=HamRadio;SDR;Radio;

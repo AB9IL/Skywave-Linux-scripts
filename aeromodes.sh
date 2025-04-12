@@ -47,7 +47,7 @@ devkey=$(cat /usr/local/etc/sdr_key)
 key=$(echo $devkey | cut -f2 -d "=")
 
 zero="0"
-ans=$(zenity  --list  --title="RTLSDR Multichannel Digital Decoders" \
+ans=$(yad  --list  --title="RTLSDR Multichannel Digital Decoders" \
 --height 540 --width 400 \
 --text="ACARSdec and VDLM2dec functions:
 -- ACARSdec decodes ACARS
@@ -76,7 +76,7 @@ TRUE "Stop ACARSdec or VDLM2dec" \
 	acarsserv -v -j 127.0.0.1:5555 -b $acarslog -s &
 	sleep 3
 	sqlitebrowser $acarslog &
-	WINDOW=$(zenity --info --height 100 --width 350 \
+	WINDOW=$(yad --info --height 100 --width 350 \
 	--title="ACARSdec - Running." \
 	--text="The multi channel ACARS monitor is running.
         To stop, use this application and select \"Stop ACARSdec.\"");)
@@ -87,7 +87,7 @@ TRUE "Stop ACARSdec or VDLM2dec" \
 	acarsserv -v -j 127.0.0.1:5555 -b $vdl2log -s &
 	sleep 3
 	sqlitebrowser $vdl2log &
-	WINDOW=$(zenity --info --height 100 --width 350 \
+	WINDOW=$(yad --info --height 100 --width 350 \
 	--title="VDLM2dec - Running." \
 	--text="The multi channel VDLM2 monitor is running.
         To stop, use this application and select \"Stop VDLM2dec.\"");)

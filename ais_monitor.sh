@@ -30,7 +30,7 @@ gpsdecode -j < $fifo | tee -a "$jsonfile" &
 rtl_ais -p "$ppm" -g "$gain" &
 nc 127.0.0.1 10110 > $fifo
 
-WINDOW=$(zenity --info --height 100 --width 350 \
+WINDOW=$(yad --info --height 100 --width 350 \
 --title="RTL-AIS - Running." \
 --text="The dual channel AIS monitor is running.
 To stop, use this application and select \"Stop AIS capture and logging.\""
@@ -46,7 +46,7 @@ sh -c "ais-fileto-sqlite $fifo"
 rtl_ais -p "$ppm" -g "$gain" &
 nc 127.0.0.1 10110 > $fifo
 
-WINDOW=$(zenity --info --height 100 --width 350 \
+WINDOW=$(yad --info --height 100 --width 350 \
 --title="RTL-AIS - Running." \
 --text="The dual channel AIS monitor is running.
 To stop, use this application and select \"Stop AIS capture and logging.\""
@@ -54,7 +54,7 @@ To stop, use this application and select \"Stop AIS capture and logging.\""
 }
 
 readto_db() {
-FILE=$(zenity --file-selection --title="RTL-AIS - Select File" \
+FILE=$(yad --file-selection --title="RTL-AIS - Select File" \
 --text="Select a file containing raw NMEA sentences to decode.");
 
 case $? in
@@ -62,13 +62,13 @@ case $? in
 		echo "$FILE selected.";;
 	1)
 		echo "No file selected."
-		WINDOW=$(zenity --info --height 100 --width 350 \
+		WINDOW=$(yad --info --height 100 --width 350 \
 		--title="RTL-AIS - NMEA - Decode to Database." \
 		--text="No file selected. \nNo decoding accomplished.")
 		exit;;
 	2)
 		echo "Something went wrong..."
-		WINDOW=$(zenity --info --height 100 --width 350 \
+		WINDOW=$(yad --info --height 100 --width 350 \
 		--title="RTL-AIS - NMEA - Decode to Database." \
 		--text="No file selected. \nNo decoding accomplished.")
 		exit;;
@@ -78,7 +78,7 @@ nmeafile=$FILE
 # call the python script to read the file and build the database
 sh -c "ais-fileto-sqlite $nmeafile"
 
-WINDOW=$(zenity --info --height 100 --width 350 \
+WINDOW=$(yad --info --height 100 --width 350 \
 --title="RTL-AIS - NMEA - Decode to Database." \
 --text="The decoder process has run. \
 \nFind the timestamped \
@@ -86,7 +86,7 @@ WINDOW=$(zenity --info --height 100 --width 350 \
 }
 
 readto_json() {
-FILE=$(zenity --file-selection --title="RTL-AIS - Select File with NMEA Data");
+FILE=$(yad --file-selection --title="RTL-AIS - Select File with NMEA Data");
 case $? in
 	0)
 		echo "\"$FILE\" selected."
@@ -95,7 +95,7 @@ case $? in
 		# cat -> decode -> save
 		gpsdecode < "$nmeafile" | tee "${TIME}-ais-decoded.json"
 
-		WINDOW=$(zenity --info --height 100 --width 350 \
+		WINDOW=$(yad --info --height 100 --width 350 \
 		--title="RTL-AIS - NMEA - Decode to JSON." \
 		--text="The decoder process has run. \
         \nFind the timestamped \
@@ -103,14 +103,14 @@ case $? in
 		;;
 	1)
 		echo "No file selected."
-		WINDOW=$(zenity --info --height 100 --width 350 \
+		WINDOW=$(yad --info --height 100 --width 350 \
 		--title="RTL-AIS - NMEA - Decode to JSON." \
 		--text="No file selected. \nNo decoding accomplished.")
 		exit
 		;;
 	2)
 		echo "Something went wrong..."
-		WINDOW=$(zenity --info --height 100 --width 350 \
+		WINDOW=$(yad --info --height 100 --width 350 \
 		--title="RTL-AIS - NMEA - Decode to JSON." \
 		--text="Something went wrong. \nNo decoding accomplished.")
 		exit
@@ -120,27 +120,27 @@ esac
 
 startmapper() {
 # Select the json file to send to the mapper
-FILE=$(zenity --file-selection --title="RTL-AIS - Select Json File with AIS Data");
+FILE=$(yad --file-selection --title="RTL-AIS - Select Json File with AIS Data");
 case $? in
 	0)
 		echo "\"$FILE\" selected."
 		jsonfile=$FILE
 		ais-mapper "$jsonfile"
 
-		WINDOW=$(zenity --info --height 100 --width 350 \
+		WINDOW=$(yad --info --height 100 --width 350 \
 		--title="RTL-AIS - Mapper Starting." \
 		--text="Data has been sent to the mapper.")
 		;;
 	1)
 		echo "No file selected."
-		WINDOW=$(zenity --info --height 100 --width 350 \
+		WINDOW=$(yad --info --height 100 --width 350 \
 		--title="RTL-AIS - Mapping Failed: No File Selected" \
 		--text="No file selected. \nNo map plotting possible.")
 		exit
 		;;
 	2)
 		echo "Something went wrong..."
-		WINDOW=$(zenity --info --height 100 --width 350 \
+		WINDOW=$(yad --info --height 100 --width 350 \
 		--title="RTL-AIS - Mapping Failed: Something Went Wrong" \
 		--text="Something went wrong. \nNo mapping accomplished.")
 		exit

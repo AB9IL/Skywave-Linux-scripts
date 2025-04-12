@@ -1,0 +1,10 @@
+
+[Desktop Entry]
+Name=Multichannel Voice (AM/NBFM)
+GenericName=Multichannel Voice (AM/NBFM)
+Comment=Multiple frequency monitor (Soapy/RTLSDR-Airband).
+Exec=/usr/local/bin/rtlsdr-airband.sh
+Icon=airband
+Terminal=false
+Type=Application
+Categories=HamRadio;Aviation;Radio;

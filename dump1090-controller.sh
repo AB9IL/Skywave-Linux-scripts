@@ -69,7 +69,7 @@ firefox --new-tab http://localhost/dump1090/ &
 
 notifyerror(){
         echo "Something went wrong!!!!!!"
-        WINDOW=$(zenity --info --height 100 --width 350 \
+        WINDOW=$(yad --info --height 100 --width 350 \
 		--title="Dump1090 - Error." \
 		--text="Something went wrong!!!!!!");
 		stop_dump

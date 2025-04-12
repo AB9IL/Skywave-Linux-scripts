@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=SDR Operating Parameters
+GenericName=_SDR Operating Parameters
+Comment=Manage SDR frequency offset, gain, and type.
+Exec=/usr/local/bin/sdr-params.sh
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=HamRadio;Radio;

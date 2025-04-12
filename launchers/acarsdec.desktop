@@ -1,0 +1,10 @@
+
+[Desktop Entry]
+Name=Multichannel ACARS/VDLm2
+GenericName=ACARS and VDLm2 decoder
+Comment=ACARS and VDL Mode 2 Decoder.
+Exec=/usr/local/bin/aeromodes.sh
+Icon=airband
+Terminal=false
+Type=Application
+Categories=HamRadio;ADSB;Radio;

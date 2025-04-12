@@ -19,14 +19,14 @@ SELECTED="$(echo -e "$OPTIONS" | rofi -lines 3 -dmenu -p "FFT Samplerate")"
 
 [[  "$SELECTED" == "High Rate" ]] && audioprism -r 48000 \
     --orientation horizontal --width 1920 \
-    --magnitude-min -18 --dft-size 1024 \
+    --magnitude-min -18 --dft-size 2048 \
     --overlap 35
-[[  "$SELECTED" == "Medium Rate" ]] && audioprism -r 22000 \
+[[  "$SELECTED" == "Medium Rate" ]] && audioprism -r 24000 \
     --orientation horizontal --width 1920 \
-    --magnitude-min -18 --dft-size 1024 \
+    --magnitude-min -18 --dft-size 2048 \
     --overlap 35
 
-[[  "$SELECTED" == "Low Rate" ]] && audioprism -r 9000 \
+[[  "$SELECTED" == "Low Rate" ]] && audioprism -r 12000 \
     --orientation horizontal --width 1920 \
-    --magnitude-min -18 --dft-size 1024 \
+    --magnitude-min -18 --dft-size 2048 \
     --overlap 35

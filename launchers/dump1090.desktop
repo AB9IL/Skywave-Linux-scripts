@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Dump1090 (SoapySDR)
+GenericName=Dump1090 (SoapySDR)
+Comment=ADS-B Decoder using SoapySDR driver.
+Exec=/usr/local/bin/dump1090-controller.sh gui
+Icon=airband
+Terminal=false
+Type=Application
+Categories=HamRadio;ADSB;Radio;

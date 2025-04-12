@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Audioprism-selector
+Name[en]=Audioprism-selector
+GenericName=Audio spectrum display
+Comment=Audio spectrum display.
+Icon=utilities-terminal
+Exec=/usr/local/bin/audioprism-selector
+Terminal=false
+Categories=Audio;HamRadio

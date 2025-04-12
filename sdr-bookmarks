@@ -7,7 +7,7 @@
 # (at your option) any later version. There is NO warranty; not even for
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-BOOKMARKS_FILE="~/.config/sdrbookmarks"
+BOOKMARKS_FILE="$HOME/.config/sdrbookmarks"
 UNIT="e6" # Freq units. e6 for MHz, empty for Hz
 AM_SAMP="16000" # am sampling rate
 FM_SAMP="16000" # fm sampling rate

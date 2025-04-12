@@ -26,7 +26,7 @@ pos=$(cat /usr/local/etc/sdr_posn)
 
 get_offset(){
 echo "Best channel is: $best_channel."
-	WINDOW=$(zenity --info --height 100 --width 350 \
+	WINDOW=$(yad --info --height 100 --width 350 \
 	--title="Calibration and Gain" \
 	--text="Channel $best_channel selected for ppm offset measurements.");
 
@@ -41,14 +41,14 @@ echo "Offset (ppm) is: $offset."
 echo $offset > /usr/local/etc/sdr_offset  # save offset for general usage
 sed -i "s/corr_freq=.*/corr_freq=${offset}000000/g" ~/.config/gqrx/default.conf # save offset for gqrx
 
-	WINDOW=$(zenity --info --height 100 --width 350 \
+	WINDOW=$(yad --info --height 100 --width 350 \
 	--title="Calibration and Gain" \
 	--text="An offset of $offset ppm has been written to file /usr/local/etc/sdr_offset.");
 }
 
 notifyerror(){
 echo "Something went wrong: $problem"
-	WINDOW=$(zenity --info --height 100 --width 400 \
+	WINDOW=$(yad --info --height 100 --width 400 \
 	--title="Calibration and Gain" \
 	--text="Something went wrong:
 $problem");
@@ -73,12 +73,12 @@ get_offset
 }
 
 set_device(){
-OUTPUT=$(zenity --forms --title="SoapySDR Device Type" --width 400 --height 100 \
+OUTPUT=$(yad --forms --title="SoapySDR Device Type" --width 400 --height 100 \
 --text="Enter the SDR start-up parameters
 reported by \"SoapySDRUtil --find\"." \
 --separator="," \
---add-entry="SoapySDR Device Driver (e.g. rtlsdr or airspy):" \
---add-entry="SoapySDR Device Key (e.g. 0, 1, or 2):" \
+--entry="SoapySDR Device Driver (e.g. rtlsdr or airspy):" \
+--entry="SoapySDR Device Key (e.g. 0, 1, or 2):" \
 );
 
 driver=$(awk -F, '{print $1}' <<<$OUTPUT)
@@ -100,16 +100,16 @@ echo $driver > /usr/local/etc/sdr_driver
 # write device key to the reference file
 echo $devkey > /usr/local/etc/sdr_key
 
-	WINDOW=$(zenity --info --height 100 --width 350 \
+	WINDOW=$(yad --info --height 100 --width 350 \
 	--title="SoapySDR Device Type" \
 	--text="Device driver $driver has been written to file /usr/local/etc/sdr_driver.
 Device key $devkey has been written to file /usr/local/etc/sdr_key.");
 }
 
 set_gain(){
-OUTPUT=$(zenity --forms --title="Calibration and Gain" --width 400 --height 100 \
+OUTPUT=$(yad --forms --title="Calibration and Gain" --width 400 --height 100 \
 --text="Enter the desired SDR gain." \
---add-entry="Gain:");
+--entry="Gain:");
 
 gain=$(awk -F, '{print $1}' <<<$OUTPUT)
 
@@ -121,22 +121,22 @@ fi
 # write gain setting to the reference file
 echo $gain > /usr/local/etc/sdr_gain
 
-	WINDOW=$(zenity --info --height 100 --width 350 \
+	WINDOW=$(yad --info --height 100 --width 350 \
 	--title="Calibration and Gain" \
 	--text="A gain of $gain has been written to file /usr/local/etc/sdr_gain.");
 }
 
 check_soapy() {
 mydevinfo=$(SoapySDRUtil --find)
-	WINDOW=$(zenity --info --height 500 --width 500 \
+	WINDOW=$(yad --info --height 500 --width 500 \
 	--title="SoapySDR Device Type" \
 	--text="${mydevinfo}");
 }
 
 set_offset(){
-OUTPUT=$(zenity --forms --title="Calibration and Gain" --width 400 --height 100 \
+OUTPUT=$(yad --forms --title="Calibration and Gain" --width 400 --height 100 \
 --text="Enter the desired SDR offset (ppm)." \
---add-entry="Offset:");
+--entry="Offset:");
 
 offset=$(awk -F, '{print $1}' <<<$OUTPUT)
 
@@ -149,18 +149,18 @@ echo $offset > /usr/local/etc/sdr_offset  # save offset for general usage
 offset2="$(bc<<<${offset}*10)"
 sed -i "s/corr_freq=.*/corr_freq=${offset2}00000/g" ~/.config/gqrx/default.conf # save offset for gqrx
 
-	WINDOW=$(zenity --info --height 100 --width 350 \
+	WINDOW=$(yad --info --height 100 --width 350 \
 	--title="Calibration and Gain" \
 	--text="An offset of $offset ppm has been written to file /usr/local/etc/sdr_offset.");
 }
 
 set_position(){
-OUTPUT=$(zenity --forms --title="Geographic Position" --width 400 --height 300 \
+OUTPUT=$(yad --forms --title="Geographic Position" --width 400 --height 300 \
 --text="Enter the geographic coordinates.
 * Use decimal format and comma separate the numbers.
 * WEST and SOUTH coordinates are negative values.
 For example, JFK airport:  40.64,-73.78 " \
---add-entry="Latitude, Longitude:");
+--entry="Latitude, Longitude:");
 
 lat=$(awk -F, '{print $1}' <<<$OUTPUT)
 lon=$(awk -F, '{print $2}' <<<$OUTPUT)
@@ -179,14 +179,14 @@ fi
 # write coordinates to the reference file
 echo $lat","$lon > /usr/local/etc/sdr_posn
 
-	WINDOW=$(zenity --info --height 100 --width 350 \
+	WINDOW=$(yad --info --height 100 --width 350 \
 	--title="Geographic Position" \
 	--text="A position of $lat,$lon has been written to file /usr/local/etc/sdr_posn.");
 }
 
 toggle_tee() {
 teemode="UNKNOWN"
-OUTPUT=$(zenity  --list  --title "RTLSDR Bias Tee" --width 500 --height 170 \
+OUTPUT=$(yad  --list  --title "RTLSDR Bias Tee" --width 500 --height 170 \
 --text "Toggle the RTLSDR bias tee on or off." \
 --radiolist  --column "Pick" --column "Action" \
 FALSE "Set bias tee ON."  \
@@ -202,12 +202,12 @@ TRUE "Set bias tee OFF.");
 
 	fi
 
-	WINDOW=$(zenity --info --height 100 --width 310 \
+	WINDOW=$(yad --info --height 100 --width 310 \
 	--title="RTLSDR Bias Tee" \
 	--text="The bias tee has been set to $teemode.");
 }
 
-ans=$(zenity  --list  --title "SDR Operating Parameters" --width 500 --height 640 \
+ans=$(yad  --list  --title "SDR Operating Parameters" --width 500 --height 640 \
 --text "Manage RTL-SDR frequency calibration and gain.
 1) Calibration uses measurements of GSM base stations.
 2) Device gain is saved for reference by other applications.

@@ -58,7 +58,7 @@ sleep 3
 /etc/init.d/alsa-utils restart
 pulseaudio -k
 # Remind the user to stop manually.
-WINDOW=$(zenity --info --height 100 --width 350 \
+WINDOW=$(yad --info --height 100 --width 350 \
 --title="Multichannel Voice - Running" \
 --text="The multichannel receiver is running.
 Output is on PulseAudio.
@@ -76,7 +76,7 @@ sleep 3
 sleep 3
 firefox --new-tab http://localhost:7000/mixer1.mp3 &
 # Remind the user to stop manually.
-WINDOW=$(zenity --info --height 100 --width 350 \
+WINDOW=$(yad --info --height 100 --width 350 \
 --title="Multichannel Voice - Running" \
 --text="The multichannel receiver is running.
 Output is on the Icecast server.
@@ -276,12 +276,12 @@ cp -f /usr/local/etc/rtl_airband.conf.bak /usr/local/etc/rtl_airband.conf
 
 notifyerror(){
         echo "Something went wrong!!!!!!"
-        WINDOW=$(zenity --info --height 100 --width 350 \
+        WINDOW=$(yad --info --height 100 --width 350 \
 		--title="Multicgannel Voice - Error." \
 		--text="Something went wrong!!!!!!");
 }
 
-ans=$(zenity --list --title "Multichannel Voice" --height 540 --width 500 \
+ans=$(yad --list --title "Multichannel Voice" --height 540 --width 500 \
 --text "Multichannel Voice functions:
 --Uses SoapySDR drivers
 --Simultaneous multichannel demodulation
