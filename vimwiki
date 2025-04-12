@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# Launch Neovim directly into VimwikiIndex
-nvim -c VimwikiIndex
