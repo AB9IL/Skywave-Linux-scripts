@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# run the appimage with a "cubicsdr" command
-LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libxcb-dri3.so.0 \
-    /opt/CubicSDR/CubicSDR.AppImage &
