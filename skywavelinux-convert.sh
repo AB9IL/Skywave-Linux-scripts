@@ -258,18 +258,19 @@ echo '#!/bin/sh
 exec /usr/bin/X -nolisten tcp -ardelay 400 -arinterval 17 "$@"
 ' >/etc/X11/xinit/xserverrc
 
-# Install editors and other generic items:
+# Install editors and other items:
 PKGS="fzf ripgrep fd-find glow qalc shotcut default-jre default-jre-headless \
 ffmpeg lsp-plugins chrony pandoc pandoc-citeproc poppler-utils p7zip ruby-dev \
 picom rng-tools-debian haveged irssi newsboat zathura zathura-ps zathura-djvu \
 zathura-cb odt2txt atool w3m mediainfo parallel thunar thunar-volman ristretto \
-libmpv2 mpv mplayer firmware-misc-nonfree firmware-linux-nonfree firmware-iwlwifi \
-firmware-brcm80211 meld gnome-screenshot gnome-keyring cmake libgtk-3-common \
-audacity shellcheck shfmt luarocks black ruff tidy yamllint pypy3 dconf-editor \
-net-tools blueman sqlite3 sqlitebrowser dbus-x11 zlib1g-dev libxml2-dev libjansson-dev \
-obs-studio filezilla htop fastfetch tmux proxychains4 rofi sshuttle seahorse \
+libmpv2 mpv mplayer firmware-misc-nonfree firmware-iwlwifi firmware-brcm80211 \
+firmware-intel-graphics firmware-intel-misc firmware-marvell-prestera \
+firmware-mediatek firmware-nvidia-graphics meld gnome-screenshot gnome-keyring \
+cmake libgtk-3-common audacity shellcheck shfmt luarocks black ruff tidy \
+yamllint pypy3 dconf-editor net-tools blueman sqlite3 sqlitebrowser dbus-x11 \
+zlib1g-dev libxml2-dev libjansson-dev obs-studio filezilla htop fastfetch tmux \
+rofi proxychains4 sshuttle tor torsocks obfs4proxy snowflake-client seahorse \
 surfraw surfraw-extra usbreset yad lsp-plugins-vst"
-
 for PKG in $PKGS; do sudo apt -y install $PKG; done
 
 
@@ -386,6 +387,17 @@ cp /tmp/{gofmt,gophernotes} /usr/local/go/bin/
 
 # Create symlink for gofmt
 ln -sf /usr/local/go/bin/gofmt /usr/local/bin/gofmt
+
+# Install Harper (English grammar checker)
+(
+    cd "$working_dir" || exit
+    mkdir harper-ls
+    cd harper-ls || exit
+    wget -c https://github.com/Automattic/harper/releases/download/v"$HARP_VER"/harper-ls-"$ARCH2"-unknown-linux-gnu.tar.gz
+    tar -xvzf --overwrite harper-ls-"$ARCH2"-unknown-linux-gnu.tar.gz
+    chmod +x "$working_dir"/harper-ls/harper-ls
+    ln -sf "$working_dir"/harper-ls/harper-ls /usr/local/bin/harper-ls
+)
 
 # Install the latest Neovim
 (
