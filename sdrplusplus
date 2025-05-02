@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Configure SDR++ to work with RTL-SDRs
+# via rtl_tcp
+
+#Get the SDR frequency offset (ppm)
+ppm=$(cat /usr/local/etc/sdr_offset)
+#Get the SDR gain (gain)
+gain=$(cat /usr/local/etc/sdr_gain)
+
+rtl_tcp -g $gain -P $PPM &
+sleep 0.5
+sdrpp &

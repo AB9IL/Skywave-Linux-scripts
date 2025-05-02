@@ -1775,9 +1775,10 @@ printf "\nInstalling Skywave-Linux-scripts"
 (
     cd "$working_dir" || exit
     git clone https://github.com/AB9IL/Skywave-Linux-scripts
-    SCRIPTS="aeromodes.sh ais_monitor.sh audioprism-selector \
-        dump1090-controller.sh dump1090-stream-parser glow-wrapper \
-        rtlsdr-airband.sh sdr-bookmarks sdr-params.sh"
+    SCRIPTS="aeromodes.sh ais-file-decoder ais-fileto-sqlite ais-mapper \
+        ais_monitor.sh audioprism-selector dump1090-controller.sh \
+        dump1090-stream-parser glow-wrapper rtlsdr-airband.sh \
+        sdrplusplus sdr-bookmarks sdr-params.sh"
     for SCRIPT in $SCRIPTS;do
         chmod +x Skywave-Linux-scripts/"$SCRIPT"
         ln -sf "$working_dir"/Skywave-Linux-scripts/"$SCRIPT" \
