@@ -270,7 +270,8 @@ cmake libgtk-3-common audacity shellcheck shfmt luarocks black ruff tidy \
 yamllint pypy3 dconf-editor net-tools blueman sqlite3 sqlitebrowser dbus-x11 \
 zlib1g-dev libxml2-dev libjansson-dev obs-studio filezilla htop fastfetch tmux \
 rofi proxychains4 sshuttle tor torsocks obfs4proxy snowflake-client seahorse \
-surfraw surfraw-extra usbreset yad lsp-plugins-vst"
+surfraw surfraw-extra usbreset yad lsp-plugins-vst squashfs-tools genisoimage \
+syslinux-utils xorriso"
 for PKG in $PKGS; do sudo apt -y install $PKG; done
 
 
