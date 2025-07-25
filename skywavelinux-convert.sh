@@ -31,7 +31,7 @@
 ###############################################################################
 # ROOT USER CHECK
 ###############################################################################
-SCRIPT_VERSION="0.4"
+SCRIPT_VERSION="0.5"
 echo -e "\nSkywave Linux Converter v$SCRIPT_VERSION"
 # exit if not root
 [[ $EUID -ne 0 ]] && echo -e "\nYou must be root to run this script." && exit
@@ -230,7 +230,7 @@ echo 'SUBSYSTEM=="usb",
 ENV{DEVTYPE}=="usb_device",
 ATTRS{idVendor}=="1df7",
 ATTRS{idProduct}=="2500",
-MODE:="0666"' > /etc/udev/rules.d/66-mirics.rules%0A
+MODE:="0666"' >/etc/udev/rules.d/66-mirics.rules%0A
 
 # create the /etc/environment file
 echo 'PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
@@ -274,7 +274,6 @@ surfraw surfraw-extra usbreset yad lsp-plugins-vst squashfs-tools genisoimage \
 syslinux-utils xorriso"
 for PKG in $PKGS; do sudo apt -y install $PKG; done
 
-
 # This is a separate group of packages specifically involving
 # radio or other comms
 # For Debian (and derivatives), see this page for SDR packages:
@@ -314,7 +313,6 @@ ln -sf /usr/lib/x86_64-linux-gnu/librtlsdr.so.2 /usr/lib/x86_64-linux-gnu/librtl
 # Get SatDump:
 # Debian Package or https://github.com/SatDump/SatDump#linux
 # Do not get WxtoImg, Glrpt, or Noaa-apt
-
 
 # lsp-plugins should be hidden, but are not.
 # append code in the launchers
@@ -357,7 +355,7 @@ apt install -y nodejs
 # Test with: nodejs --version
 
 # Use npm as the node package manager.
-PKGS="prettier eslint_d jsonlint markdownlint readability-cli"
+PKGS="prettier @fsouza/prettierd eslint_d jsonlint markdownlint readability-cli"
 for PKG in $PKGS; do npm install -g $PKG; done
 
 # Update node and prune cruft with:
@@ -1705,7 +1703,7 @@ Ylokh
 You
 Yqcloud
 G4F
-xAI' > /opt/python-tgpt/providers
+xAI' >/opt/python-tgpt/providers
 
 # install golang-based tgpt
 printf "\nInstalling Golang-based tgpt"
@@ -1721,8 +1719,8 @@ printf "\nInstalling Golang-based tgpt"
     ln -sf "$working_dir"/gotgpt-wrapper/gotgpt-wrapper \
         /usr/local/bin/gotgpt-wrapper
 
-# create a launcher for Golang-based-tgpt
-echo '[Desktop Entry]
+    # create a launcher for Golang-based-tgpt
+    echo '[Desktop Entry]
 Type=Application
 Name=goTerminal GPT
 Name[en]=goTerminal GPT
@@ -1780,7 +1778,7 @@ printf "\nInstalling Skywave-Linux-scripts"
         ais_monitor.sh audioprism-selector dump1090-controller.sh \
         dump1090-stream-parser glow-wrapper rtlsdr-airband.sh \
         sdrplusplus sdr-bookmarks sdr-params.sh"
-    for SCRIPT in $SCRIPTS;do
+    for SCRIPT in $SCRIPTS; do
         chmod +x Skywave-Linux-scripts/"$SCRIPT"
         ln -sf "$working_dir"/Skywave-Linux-scripts/"$SCRIPT" \
             /usr/local/bin/"$SCRIPT"
@@ -1792,8 +1790,8 @@ printf "\nInstalling Skywave-Linux-scripts"
     # copy some launchers into the home environment
     cp "$working_dir"/Skywave-Linux-scripts/launchers/* \
         /home/"$USERNAME"/.local/share/applications/
-        chown "$USERNAME":"$USERNAME" \
-            /home/"$USERNAME"/.local/share/applications/*
+    chown "$USERNAME":"$USERNAME" \
+        /home/"$USERNAME"/.local/share/applications/*
     # copy some icons to the pixmaps folder
     [[ -f "/usr/share/pixmaps" ]] || mkdir -p /usr/share/pixmaps
     cp "$working_dir"/Skywave-Linux-scripts/icons/* \
@@ -1808,8 +1806,8 @@ printf "\nInstalling Skywave-Linux-scripts"
 printf "\n...acarsdec..."
 (
     cd "$working_dir" || exit
-    git clone "https://github.com/szpajder/acarsdec" --depth 1 \
-        && mkdir -p "$working_dir/acarsdec/build"
+    git clone "https://github.com/szpajder/acarsdec" --depth 1 &&
+        mkdir -p "$working_dir/acarsdec/build"
     cd "$working_dir/acarsdec/build" || exit
     cmake ../ -Drtl=ON
     make -j4
@@ -1871,9 +1869,9 @@ printf "\n\n...dump1090_ol3map..."
 printf "\n...dumphfdl..."
 (
     cd "$working_dir" || exit
-    [[ -d "$working_dir/dumphfdl" ]] \
-        || git clone "https://github.com/szpajder/dumphfdl" --depth 1 \
-        && mkdir -p "$working_dir/dumphfdl/build"
+    [[ -d "$working_dir/dumphfdl" ]] ||
+        git clone "https://github.com/szpajder/dumphfdl" --depth 1 &&
+        mkdir -p "$working_dir/dumphfdl/build"
     cd "usr/local/src/dumphfdl/build" || exit
     cmake ../
     make -j4
@@ -1885,8 +1883,8 @@ printf "\n...dumphfdl..."
 printf "\n...dumpvdl2..."
 (
     cd "$working_dir" || exit
-    git clone "https://github.com/szpajder/dumpvdl2" --depth 1 \
-        && mkdir -p "$working_dir/dumpvdl2/build"
+    git clone "https://github.com/szpajder/dumpvdl2" --depth 1 &&
+        mkdir -p "$working_dir/dumpvdl2/build"
     cd "usr/local/src/dumpvdl2/build" || exit
     cmake ../
     make -j4
@@ -1911,8 +1909,8 @@ printf "\n...kalibrate-rtl..."
 printf "\n...libacars..."
 (
     cd "$working_dir" || exit
-    git clone "https://github.com/szpajder/libacars" --depth 1 \
-        && mkdir -p "$working_dir/libacars/build"
+    git clone "https://github.com/szpajder/libacars" --depth 1 &&
+        mkdir -p "$working_dir/libacars/build"
     cd "$working_dir/libacars/build" || exit
     cmake ../
     make -j4
@@ -1923,9 +1921,9 @@ printf "\n...libacars..."
 printf "\n...RTLSDR-Airband..."
 (
     cd "$working_dir" || exit
-    [[ -d "$working_dir/RTLSDR-Airband" ]] \
-        || git clone "https://github.com/szpajder/RTLSDR-Airband" --depth 1 \
-        && mkdir -p "$working_dir/RTLSDR-Airband/build"
+    [[ -d "$working_dir/RTLSDR-Airband" ]] ||
+        git clone "https://github.com/szpajder/RTLSDR-Airband" --depth 1 &&
+        mkdir -p "$working_dir/RTLSDR-Airband/build"
     cd "$working_dir/RTLSDR-Airband/build" || exit
     cmake -NFM=ON -DMIRISDR=OFF ../
     make -j4
@@ -1937,8 +1935,8 @@ printf "\n...RTLSDR-Airband..."
 printf "\n...rtl-ais..."
 (
     cd "$working_dir" || exit
-    [[ -d "$working_dir/rtl-ais" ]] \
-        || git clone "https://github.com/dgiardini/rtl-ais" --depth 1
+    [[ -d "$working_dir/rtl-ais" ]] ||
+        git clone "https://github.com/dgiardini/rtl-ais" --depth 1
     cd "$working_dir/rtl-ais" || exit
     make -j4
     # make install
@@ -1950,7 +1948,7 @@ printf "\n...SDRTrunk..."
 (
     cd "$working_dir" || exit
     wget -c https://github.com/DSheirer/sdrtrunk/releases/download/v"$TRUNK_VER"/sdr-trunk-linux-"$ARCH2"-v"$TRUNK_VER".zip
-    if [[ -f  sdr-trunk-linux-"$ARCH2"-v"$TRUNK_VER".zip ]]; then
+    if [[ -f sdr-trunk-linux-"$ARCH2"-v"$TRUNK_VER".zip ]]; then
         unzip sdr-trunk-linux-"$ARCH2"-v"$TRUNK_VER".zip
         if [[ -f sdr-trunk-linux-"$ARCH2"-v"$TRUNK_VER"/bin/sdr-trunk ]]; then
             chmod +x sdr-trunk-linux-"$ARCH2"-v"$TRUNK_VER"/bin/sdrt-runk
@@ -1962,11 +1960,11 @@ printf "\n...SDRTrunk..."
 )
 
 # Install vdlm2dec
-    printf "\n...vdlm2dec..."
-    (
+printf "\n...vdlm2dec..."
+(
     cd "$working_dir" || exit
-    git clone "https://github.com/TLeconte/vdlm2dec" --depth 1 \
-        && mkdir -p "$working_dir/vdlm2dec/build"
+    git clone "https://github.com/TLeconte/vdlm2dec" --depth 1 &&
+        mkdir -p "$working_dir/vdlm2dec/build"
     cd "$working_dir/vdlm2dec/build" || exit
     cmake .. -Drtl=ON
     make -j4
@@ -1978,8 +1976,8 @@ printf "\n...SDRTrunk..."
 printf "\n...rx_tools..."
 (
     cd "$working_dir" || exit
-    git clone "https://github.com/rxseger/rx_tools" --depth 1 \
-        && mkdir -p "$working_dir/rx_tools/build"
+    git clone "https://github.com/rxseger/rx_tools" --depth 1 &&
+        mkdir -p "$working_dir/rx_tools/build"
     cd "$working_dir/rx_tools/build" || exit
     cmake ../
     make clean
@@ -1991,8 +1989,8 @@ printf "\n...rx_tools..."
 printf "\n...SoapyRTLTCP..."
 (
     cd "$working_dir" || exit
-    git clone "https://github.com/pothosware/SoapyRTLTCP" --depth 1 \
-        && mkdir -p "$working_dir/SoapyRTLTCP/build"
+    git clone "https://github.com/pothosware/SoapyRTLTCP" --depth 1 &&
+        mkdir -p "$working_dir/SoapyRTLTCP/build"
     cd "$working_dir/SoapyRTLTCP/build" || exit
     cmake ..
     make clean
@@ -2004,8 +2002,8 @@ printf "\n...SoapyRTLTCP..."
 printf "\n...SoapyPlutoSDR"
 (
     cd "$working_dir" || exit
-    git clone "https://github.com/pothosware/SoapyPlutoSDR" --depth 1 \
-        && mkdir -p "$working_dir/SoapyPlutoSDR/build"
+    git clone "https://github.com/pothosware/SoapyPlutoSDR" --depth 1 &&
+        mkdir -p "$working_dir/SoapyPlutoSDR/build"
     cd "$working_dir/SoapyPlutoSDR/build" || exit
     cmake ..
     make clean
@@ -2017,8 +2015,8 @@ printf "\n...SoapyPlutoSDR"
 printf "\n...SoapySDRPlay3..."
 (
     cd "$working_dir" || exit
-    git clone "https://github.com/pothosware/SoapySDRPlay3" --depth 1 \
-        && mkdir -p "$working_dir/SoapySDRPlay3/build"
+    git clone "https://github.com/pothosware/SoapySDRPlay3" --depth 1 &&
+        mkdir -p "$working_dir/SoapySDRPlay3/build"
     cd "$working_dir/SoapySDRPlay3/build" || exit
     cmake ..
     make clean
@@ -2041,9 +2039,9 @@ printf "\n...hfp_tcp (TCP server for Airspy HF+)"
 printf "\n...SoapyFCDPP"
 (
     cd "$working_dir" || exit
-    [[ -d "$working_dir/SoapyFCDPP" ]] \
-        || git clone "https://github.com/pothosware/SoapyFCDPP" --depth 1 \
-        && mkdir -p "$working_dir/SoapyFCDPP/build"
+    [[ -d "$working_dir/SoapyFCDPP" ]] ||
+        git clone "https://github.com/pothosware/SoapyFCDPP" --depth 1 &&
+        mkdir -p "$working_dir/SoapyFCDPP/build"
     cd "$working_dir/SoapyFCDPP/build" || exit
     cmake ../
     make clean
@@ -2055,8 +2053,8 @@ printf "\n...SoapyFCDPP"
 printf "\n...SoapySpyServer"
 (
     cd "$working_dir" || exit
-    git clone "https://github.com/pothosware/SoapySpyServer" --depth 1 \
-        && mkdir -p "$working_dir/SoapySpyServer/build"
+    git clone "https://github.com/pothosware/SoapySpyServer" --depth 1 &&
+        mkdir -p "$working_dir/SoapySpyServer/build"
     cd "$working_dir/SoapySpyServer/build" || exit
     cmake ..
     make clean
