@@ -31,7 +31,7 @@
 ###############################################################################
 # ROOT USER CHECK
 ###############################################################################
-SCRIPT_VERSION="0.5"
+SCRIPT_VERSION="0.6"
 echo -e "\nSkywave Linux Converter v$SCRIPT_VERSION"
 # exit if not root
 [[ $EUID -ne 0 ]] && echo -e "\nYou must be root to run this script." && exit
@@ -717,6 +717,27 @@ sed -i "11s/.*/HRNGDEVICE=/dev/urandom/" /etc/default/rng-tools
 
 # configure rng-tools-debian
 sed -i "s|^.*\#HRNGDEVICE=/dev/null|HRNGDEVICE=/dev/urandom/|" /etc/default/rng-tools-debian
+
+# Devote more resources to networking performance:
+echo 'net.core.somaxconn = 4096
+net.core.netdev_max_backlog = 50000
+net.core.rmem_default = 16777216
+net.core.rmem_max = 31457280
+net.core.wmem_default = 16777216
+net.core.wmem_max = 31457280
+net.ipv4.tcp_window_scaling=1
+net.ipv4.tcp_wmem = 16384 12582912 16777216
+net.ipv4.udp_wmem_min = 16384
+net.ipv4.udp_rmem = 16384 12582912 16777216
+net.ipv4.udp_rmem_min = 16384
+net.ipv4.tcp_max_syn_backlog = 8096
+net.ipv4.tcp_slow_start_after_idle = 0
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_tw_recycle = 0
+net.ipv4.tcp_congestion_control = bbr
+net.ipv4.ip_local_port_range = 10240 65535
+net.ipv4.icmp_echo_ignore_all = 1
+' >/etc/sysctl.d/99_network-tuning.conf
 
 # Create a script for items to set up during boot time:
 echo '#!/bin/bash
