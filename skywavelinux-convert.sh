@@ -31,7 +31,7 @@
 ###############################################################################
 # ROOT USER CHECK
 ###############################################################################
-SCRIPT_VERSION="0.6"
+SCRIPT_VERSION="0.7"
 echo -e "\nSkywave Linux Converter v$SCRIPT_VERSION"
 # exit if not root
 [[ $EUID -ne 0 ]] && echo -e "\nYou must be root to run this script." && exit
@@ -142,7 +142,7 @@ MODE_FLAGS="--enable_dns_to_https"
 # Flag to configure monitoring.
 # By default, we listen on 127.0.0.1:9981, but this variable allows you to
 # change that. To disable monitoring entirely, leave this empty.
-MONITORING_FLAG="--monitoring_listen_addr=127.0.0.1:9981 --https_upstream=https://91.239.100.100/dns-query"
+MONITORING_FLAG="--monitoring_listen_addr=127.0.0.1:9981 --https_upstream=https://anycast.uncensoreddns.org/dns-query"
 ' >/etc/default/dnss
 systemctl enable dnss
 
