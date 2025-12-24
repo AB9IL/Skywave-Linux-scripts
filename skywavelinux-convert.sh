@@ -739,6 +739,21 @@ net.ipv4.ip_local_port_range = 10240 65535
 net.ipv4.icmp_echo_ignore_all = 1
 ' >/etc/sysctl.d/99_network-tuning.conf
 
+# configure chrony for better performance
+# comment out lines in chrony config
+sed -i 's|^pool 2.debian|#pool 2.debian|'; \
+       's|^sourcedir /run/chrony-dhcp|#sourcedir /run/chrony-dhcp|' \
+       /usr/share/chrony/chrony.conf
+
+echo '# Enable hardware timestamping on all compatible interfaces.
+hwtimestamp *' >/etc/chrony/conf.d/99_custom-settings.conf
+
+echo 'pool 0.pool.ntp.org iburst minpoll 4 maxpoll 10 maxsources 3 xleave extfield F323 extfield F324
+pool 1.pool.ntp.org iburst minpoll 4 maxpoll 10 maxsources 3 xleave extfield F323 extfield F324
+pool 2.pool.ntp.org iburst minpoll 4 maxpoll 10 maxsources 3 xleave extfield F323 extfield F324
+pool 3.pool.ntp.org iburst minpoll 4 maxpoll 10 maxsources 3 xleave extfield F323 extfield F324
+' >/etc/chrony/sources.d/ntp-server.sources
+
 # Create a script for items to set up during boot time:
 echo '#!/bin/bash
 
