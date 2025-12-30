@@ -718,7 +718,13 @@ sed -i "11s/.*/HRNGDEVICE=/dev/urandom/" /etc/default/rng-tools
 # configure rng-tools-debian
 sed -i "s|^.*\#HRNGDEVICE=/dev/null|HRNGDEVICE=/dev/urandom/|" /etc/default/rng-tools-debian
 
-# Devote more resources to networking performance:
+# Performance tuning settings in sysctl:
+echo 'fs.file-max = 51200
+vm.swappiness = 10
+vm.dirty_ratio = 50
+vm.dirty_background_ratio = 5
+vm.vfs_cache_pressure = 100
+vm.max_map_count = 1048576' >/etc/sysctl.d/98_system-tuning.conf
 echo 'net.core.somaxconn = 4096
 net.core.netdev_max_backlog = 50000
 net.core.rmem_default = 16777216
@@ -726,6 +732,8 @@ net.core.rmem_max = 31457280
 net.core.wmem_default = 16777216
 net.core.wmem_max = 31457280
 net.ipv4.tcp_window_scaling=1
+net.ipv4.ip_local_port_range = 10240 65535
+net.ipv4.icmp_echo_ignore_all = 1
 net.ipv4.tcp_wmem = 16384 12582912 16777216
 net.ipv4.udp_wmem_min = 16384
 net.ipv4.udp_rmem = 16384 12582912 16777216
@@ -734,9 +742,10 @@ net.ipv4.tcp_max_syn_backlog = 8096
 net.ipv4.tcp_slow_start_after_idle = 0
 net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_tw_recycle = 0
+net.ipv4.tcp_low_latency = 1
+net.ipv4.tcp_fack = 1
+net.ipv4.tcp_sack = 1
 net.ipv4.tcp_congestion_control = bbr
-net.ipv4.ip_local_port_range = 10240 65535
-net.ipv4.icmp_echo_ignore_all = 1
 ' >/etc/sysctl.d/99_network-tuning.conf
 
 # configure chrony for better performance
